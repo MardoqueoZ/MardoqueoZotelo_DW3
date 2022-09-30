@@ -1,13 +1,21 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
+@include('app')
+@include('menu')
 <div class="container">
     <h1>Lista de Alumnos</h1>
-    <a class="pull-right" href="{{route('alumnos.create')}}">
+    <a class="float-left" href="{{route('alumnos.create')}}">
         <button type="button" class="btn btn-primary">Nuevo</button>
-    </a><br>
+    </a>
+
+    <div class="card-body">
+        <form action="" class="form-inline float-right">
+            <input type="search" name="buscarpor" class="form-control mr-g-sm-2" placeholder="Buscar por ci"
+            aria-label="search">
+            <button class="btn btn-success" type="submit">Buscar</button>
+
+
+        </form>
+
+    </div>
     <div class = "table-responsive-sm">
         <table class="table table-bordered" id="tabla">
             <thead>
@@ -39,7 +47,7 @@
                     <td>{{$a->fecha_nacimiento}}</td>
                     <td>
                         <a href ="{{url('/alumnos/'.$a->id.'/edit')}}">
-                            <input type="submit" class="btn " value="Editar">
+                            <input type="submit" class="btn btn-warning" value="Editar">
                         </a>
                             
                     </td>
@@ -52,7 +60,11 @@
                         </form>
                     </td>
                     
-                    <td><a href=""></a></td>
+                    <td>
+                        <a href="{{route('alumnos.show', $a->id)}}">
+                            <input type="button" class="btn btn-info" value="Ver">
+                        </a>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

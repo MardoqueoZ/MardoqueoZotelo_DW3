@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Alumno;
 use Illuminate\Http\Request;
 use DB;
+use Flash;
 
 class AlumnoController extends Controller
 {
@@ -13,9 +14,12 @@ class AlumnoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $alumnos = Alumno::paginate(1); //iguala la variable alumnos a la tabla de datos con el mismo nombre.
+        $buscar = $request -> get('buscarpor');//buscador
+
+
+        $alumnos = Alumno::where('ci', 'like',"%$buscar%")->paginate(2); //iguala la variable alumnos a la tabla de datos con el mismo nombre.
         //$alumnos = Alumno::all();
         return view('alumno.index', compact('alumnos')); //forma en que se migran los datos a la vista.
     }
@@ -38,8 +42,34 @@ class AlumnoController extends Controller
      */
     public function store(Request $request)
     {
-        $alumnos = request() -> except('_token');
-        Alumno::insert($alumnos); //insertar en la base de datos
+        $rules = [
+            'nombre' => 'required|string',
+            'apellido' => 'required|alpha',
+            'edad' => 'required|max:3',
+            'ci' => 'required|numeric',
+            'telefono' => 'required|max:13',
+            'direccion' => 'required',
+            'gmail' => 'required|unique:alumnos,gmail',
+            'profesion' => 'required',
+            'genero' => 'required',
+            'fecha_de_nacimiento' => 'required',
+            'curso_id' => 'required',
+        ];
+
+        $mensaje = [
+            'required' => 'El :attribute es requerido',
+            'telefono.required' => 'El número de teléfono es requerido',
+            'direccion.required' => 'La dirección es requerida',
+            'profesion.required' => 'La profesión es requerida',
+            'fecha_de_nacimiento.required' => 'La fecha de nacimiento es requerida',
+            'curso_id.required' => 'El ID de curso es requerido',
+        ];
+        $this->validate($request, $rules, $mensaje);
+
+        $alumnos = request()->except('_token');
+        //return response()->json($alumnos);
+        Alumno::insert($alumnos);
+        
         return redirect(route('alumnos.index'));
     }
 
@@ -49,9 +79,10 @@ class AlumnoController extends Controller
      * @param  \App\Models\alumno  $alumno
      * @return \Illuminate\Http\Response
      */
-    public function show(alumno $alumno)
+    public function show($id)
     {
-        //
+        $alumnos = Alumno::findorFail($id); //buscar los registros segun id y los actualiza
+        return view('alumno.show', compact('alumnos'));
     }
 
     /**
@@ -63,7 +94,7 @@ class AlumnoController extends Controller
     public function edit($id)
     {
         $alumnos = Alumno::findorFail($id); //buscar los registros segun id y los actualiza
-        return view('alumno.edit', compact('alumnos'));    
+        return view('alumno.edit', compact('alumnos'));
     }
 
     /**
@@ -90,6 +121,7 @@ class AlumnoController extends Controller
     public function destroy($id)
     {
         Alumno::destroy($id); //eliminar registro de la base de datos.
+        
         return redirect('alumnos'); // al eliminar, redirecciona a la pantalla de inicio.
     }
 }

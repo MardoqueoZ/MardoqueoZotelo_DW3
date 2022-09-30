@@ -1,8 +1,28 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
 integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-<h1>Crear Alumno</h1>
+@if (count($errors)>0);
+
+	<div class="container">
+		<div class="alert alert-danger" role="alert">
+			<u>
+				@foreach ($errors->all() as $error)
+				<li>
+					{{$error}}
+				</li>
+				@endforeach
+			</u>
+		</div>
+	</div>
+	
+
+
+@endif
+
+
+
 <div class="container">
+	<h1>Crear Alumno</h1>
 	<form action="{{url('/alumnos')}}" method="post" enctype="multipart/from-data">
 		@csrf
 		<label for="nombre">Nombre del Alumno</label>

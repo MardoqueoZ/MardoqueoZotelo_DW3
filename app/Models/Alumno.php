@@ -9,7 +9,8 @@ class alumno extends Model
 {
     use HasFactory;
     public $table = 'alumnos';
-    public $fillable = [
+    public $fillable =[
+        'curso_id',
         'nombre',
         'apellido',
         'edad',
@@ -19,6 +20,6 @@ class alumno extends Model
         'gmail',
         'profesion',
         'genero',
-        'fecha_nacimiento',
+        'fecha_de_nacimiento'
     ];
 }
