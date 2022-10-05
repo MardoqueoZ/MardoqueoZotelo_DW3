@@ -22,4 +22,9 @@ class alumno extends Model
         'genero',
         'fecha_de_nacimiento'
     ];
+
+    public function cursos (){
+        return $this->belongsTo('App\Models\Curso', 'curso_id');
+        //esta funcion se uso en el index de alumno
+    }
 }

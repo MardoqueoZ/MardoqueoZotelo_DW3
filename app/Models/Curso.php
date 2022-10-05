@@ -16,4 +16,9 @@ class Curso extends Model
         'fecha_fin',
         'estado'
     ];
+
+    public function alumnos (){
+        return $this->hasMany('App\Models\Alumno');
+        
+    }
 }

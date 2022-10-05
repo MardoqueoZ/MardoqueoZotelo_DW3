@@ -6,6 +6,7 @@ use App\Models\Alumno;
 use Illuminate\Http\Request;
 use DB;
 use Flash;
+use App\Models\Curso;
 
 class AlumnoController extends Controller
 {
@@ -31,7 +32,9 @@ class AlumnoController extends Controller
      */
     public function create()
     {
-        return view('alumno.create');
+        $cursos = Curso::pluck('nombre', 'id');
+        return view('alumno.create', compact('cursos'));
+
     }
 
     /**

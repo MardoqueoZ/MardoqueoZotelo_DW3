@@ -8,7 +8,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('alumnos') }}">Alumno</a>
+                    <a class="nav-link active" aria-current="page" href="{{ url('alumnos') }}">Alumnos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ url('cursos') }}">Cursos</a>
