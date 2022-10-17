@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Alumno;
 use Illuminate\Http\Request;
 use DB;
-use Flash;
+use Laracasts\Flash\Flash;
 use App\Models\Curso;
 
 class AlumnoController extends Controller
@@ -72,7 +72,7 @@ class AlumnoController extends Controller
         $alumnos = request()->except('_token');
         //return response()->json($alumnos);
         Alumno::insert($alumnos);
-        
+        Flash::success('Creado correctamente');
         return redirect(route('alumnos.index'));
     }
 
@@ -111,7 +111,7 @@ class AlumnoController extends Controller
     {
         $alumnos = request()->except(['_token', '_method']);
         Alumno::where('id', '=', $id)->update($alumnos);
-
+        Flash::success('Editado correctamente');
         return redirect('alumnos');
     }
 
@@ -124,7 +124,7 @@ class AlumnoController extends Controller
     public function destroy($id)
     {
         Alumno::destroy($id); //eliminar registro de la base de datos.
-        
+        Flash::success('Eliminado correctamente');
         return redirect('alumnos'); // al eliminar, redirecciona a la pantalla de inicio.
     }
 }
