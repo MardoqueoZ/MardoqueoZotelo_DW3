@@ -18,6 +18,7 @@ class AlumnoController extends Controller
     public function index(Request $request)
     {
         $buscar = $request -> get('buscarpor');//buscador
+        
 
 
         $alumnos = Alumno::where('ci', 'like',"%$buscar%")->paginate(2); //iguala la variable alumnos a la tabla de datos con el mismo nombre.
