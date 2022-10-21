@@ -14,7 +14,7 @@ return [
     | any other location as required by the application or its packages.
     |
     */
-
+    'locale' => 'es',
     'name' => env('APP_NAME', 'Laravel'),
 
     /*
